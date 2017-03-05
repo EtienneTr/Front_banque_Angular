@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, FormBuilder, Validators} from "@angular/forms";
+import { Router } from '@angular/router';
 
 //service pour login
-import { ApiService } from "../../services/api.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'login',
@@ -11,33 +12,38 @@ import { ApiService } from "../../services/api.service";
 })
 export class LoginComponent implements OnInit {
 
+  //authService: AuthService;
   userForm: FormGroup;
+  error = "";
 
-  apiService: ApiService;
-
-  constructor(public formBuilder: FormBuilder){
-
-  }
+  constructor(public formBuilder: FormBuilder,
+              private router: Router,
+              private authService: AuthService
+  ){ }
 
   ngOnInit(){
-    /*this.userForm = new FormGroup({
-      userMail: new FormControl(),
-      userPass: new FormControl()
-    });*/
+
+    //logout
     this.userForm = this.formBuilder.group({
       userMail: ['', Validators.required,],
       userPass: ['', Validators.required]
     });
-
   }
 
   onLoginSubmit(){
     console.log(this.userForm);
+    let formValues = this.userForm.value;
+    let mail = formValues.userMail;
+    let pass = formValues.userPass;
 
-    let userObj = {
-      mail: this.userForm.controls.userMail.value;
-    }
+    this.authService.loginUser(mail, pass)
+      .subscribe(result => {
+        if(result === true){
+          this.router.navigate(['/home']);
+        } else {
+          this.error = "Mail ou mot de passe incorrecte";
+        }
+      });
 
-    this.apiService.loginUser(userObj);
   }
 }
