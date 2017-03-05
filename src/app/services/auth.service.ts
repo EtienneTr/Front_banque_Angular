@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class AuthService {
 
-  private baseUrl = 'http://localhost:3003/API/';
+  private baseUrl = 'http://localhost:3003/api/';
   public token: string;
 
   constructor(private http: Http){}

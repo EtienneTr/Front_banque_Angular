@@ -3,14 +3,27 @@
   Veuillez indiquer vos identifiants
 </p>
 
-  <form (ngSubmit)="onLoginSubmit()" [formGroup]="userForm">
-    <input formControlName="userMail" type="email" placeholder="Email"/>
-    <span [hidden]="userForm.controls.userMail.valid">*</span>
-    <br/>
-    <input formControlName="userPass" type="password" placeholder="Mot de passe"/>
-    <button type="submit">Se Connecter</button>
-  </form>
+  <div class="container">
+    <form name="form" (ngSubmit)="onLoginSubmit()" [formGroup]="userForm">
+      <div class="form-group row">
+        <label class="col-sm-2">Identifiant</label>
+        <div class="col-sm-10">
+          <input class="form-control" name="username" formControlName="userName" type="email" placeholder="Email" required/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2">Mot de passe</label>
+        <div class="col-sm-10">
+          <input class="form-control" name="password" formControlName="userPass" type="password" placeholder="Mot de passe" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Se Connecter</button>
+      </div>
+     </form>
 
-  <div class="alert alert-danger">{{ error }}</div>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  </div>
 
   {{ userForm.value | json }}

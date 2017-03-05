@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
     //logout
     this.userForm = this.formBuilder.group({
-      userMail: ['', Validators.required,],
+      userName: ['', Validators.required,],
       userPass: ['', Validators.required]
     });
   }
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   onLoginSubmit(){
     console.log(this.userForm);
     let formValues = this.userForm.value;
-    let mail = formValues.userMail;
+    let mail = formValues.userName;
     let pass = formValues.userPass;
 
     this.authService.loginUser(mail, pass)
