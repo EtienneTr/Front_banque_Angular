@@ -1,0 +1,14 @@
+<h3>LT BanQ - Login</h3>
+<p>
+  Veuillez indiquer vos identifiants
+</p>
+
+  <form (ngSubmit)="onLoginSubmit()" [formGroup]="userForm">
+    <input formControlName="userMail" type="email" placeholder="Email"/>
+    <span [hidden]="userForm.controls.userMail.valid">*</span>
+    <br/>
+    <input formControlName="userPass" type="password" placeholder="Mot de passe"/>
+    <button type="submit">Se Connecter</button>
+  </form>
+
+  {{ userForm.value | json }}

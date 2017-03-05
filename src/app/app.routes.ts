@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { AboutComponent } from './about/about.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RepoBrowserComponent } from './github/repo-browser/repo-browser.component';
-import { RepoListComponent } from './github/repo-list/repo-list.component';
-import { RepoDetailComponent } from './github/repo-detail/repo-detail.component';
-import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './pages/about/about.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RepoBrowserComponent } from './pages/github/repo-browser/repo-browser.component';
+import { RepoListComponent } from './pages/github/repo-list/repo-list.component';
+import { RepoDetailComponent } from './pages/github/repo-detail/repo-detail.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const rootRouterConfig: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
