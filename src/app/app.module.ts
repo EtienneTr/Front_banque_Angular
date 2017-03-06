@@ -8,9 +8,11 @@ import { HttpModule } from '@angular/http';
 
 import { AuthService } from './services/auth.service';
 import { SecurService } from './services/secur.service';
+import { UserService } from './services/user.service';
 
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './pages/contact/contact.component';
 
@@ -19,7 +21,8 @@ import { ContactComponent } from './pages/contact/contact.component';
     AppComponent,
     HomeComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { ContactComponent } from './pages/contact/contact.component';
   ],
   providers: [
     AuthService,
-    SecurService
+    SecurService,
+    UserService
   ],
   bootstrap: [ AppComponent ]
 })

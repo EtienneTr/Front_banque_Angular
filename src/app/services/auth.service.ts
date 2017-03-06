@@ -17,19 +17,14 @@ export class AuthService {
   loginUser(username: string, password: string): Observable<boolean> {
 
     let loginUrl = this.baseUrl + "login";
-    let bodyString = JSON.stringify({mail: username, password: password}); // Stringify payload
-    let headers      = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); // ... Set content type to JSON
+    let bodyString = JSON.stringify({username: username, password: password}); // Stringify payload
+    let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
     let options       = new RequestOptions({ headers: headers });
-
-    //force login
-    this.token = "TESTTOKEN";
-    localStorage.setItem('loggeduser', JSON.stringify({username: username, token: this.token }));
-    //end force
 
     return this.http.post(loginUrl, bodyString, options)
       .map((res:Response) => {
         console.log(res.json());
-        let token = "TESTTOKEN"; //res.json() && res.json().token;
+        let token = res.json() && res.json().token;
         if(token){
           this.token = token;
           //store current user infos
@@ -47,7 +42,5 @@ export class AuthService {
     this.token = null;
     localStorage.removeItem("loggeduser");
   }
-
-
 
 }
