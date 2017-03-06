@@ -14,22 +14,26 @@ export class AuthService {
 
   constructor(private http: Http){}
 
-  loginUser(usermail: string, password: string): Observable<boolean> {
+  loginUser(username: string, password: string): Observable<boolean> {
 
     let loginUrl = this.baseUrl + "login";
-    let bodyString = JSON.stringify({mail: usermail, password: password}); // Stringify payload
+    let bodyString = JSON.stringify({mail: username, password: password}); // Stringify payload
     let headers      = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); // ... Set content type to JSON
     let options       = new RequestOptions({ headers: headers });
+
+    //force login
+    this.token = "TESTTOKEN";
+    localStorage.setItem('loggeduser', JSON.stringify({username: username, token: this.token }));
+    //end force
 
     return this.http.post(loginUrl, bodyString, options)
       .map((res:Response) => {
         console.log(res.json());
-        let token = res.json() && res.json().token;
-        let username = res.json().username;
+        let token = "TESTTOKEN"; //res.json() && res.json().token;
         if(token){
           this.token = token;
           //store current user infos
-          localStorage.setItem('loggeduser', JSON.stringify({username: username, usermail: usermail, token: token }));
+          localStorage.setItem('loggeduser', JSON.stringify({username: username, token: token }));
 
           return true;
         } else {
@@ -38,5 +42,12 @@ export class AuthService {
       })
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  logout(){
+    this.token = null;
+    localStorage.removeItem("loggeduser");
+  }
+
+
 
 }
