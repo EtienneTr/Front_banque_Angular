@@ -44,8 +44,10 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         } else {
           this.error = "Mail ou mot de passe incorrecte";
-        }
-      });
+        }},
+        error => {
+          this.error = "Mail ou mot de passe incorrecte";
+        });
 
   }
 }

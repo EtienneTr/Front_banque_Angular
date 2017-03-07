@@ -13,9 +13,10 @@ import { UserService } from "../../services/user.service";
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   error = "";
+  succesMsg = "";
   //edit bool
   editing = false;
-  buttonEdit = ""
+  buttonEdit = "";
 
   //user
   username = "";
@@ -37,8 +38,7 @@ export class ProfileComponent implements OnInit {
     //get user
     this.loginService.getUser(this.username, this.token)
       .subscribe(data => {
-        console.log(data);
-        var user = data && data.user && data.user[0];
+        var user = data && data.user;
         this.lastname = user.lastname;
         this.firstname = user.firstname;
         this.mail = user.mail;
@@ -48,24 +48,38 @@ export class ProfileComponent implements OnInit {
   ngOnInit(){
 
     this.profileForm = this.formBuilder.group({
-      lastname: ['', Validators.required],
-      firstname: ['', Validators.required],
-      username: ['', Validators.required],
-      mail: ['', Validators.required]
+      lastname: [this.lastname, Validators.required],
+      firstname: [this.firstname, Validators.required],
+      username: [this.username, Validators.required],
+      mail: [this.mail, Validators.required]
     });
   }
 
   onUpdateSubmit(){
     console.log(this.profileForm);
     let formValues = this.profileForm.value;
-    /*
-    this.registerService.create(formValues.lastname, formValues.firstname, formValues.username, formValues.mail, formValues.password)
+
+    let lastname = formValues.lastname || this.lastname;
+    let firstname = formValues.firstname || this.lastname;
+    let username = formValues.username || this.username;
+    let mail = formValues.mail || this.mail;
+
+    this.loginService.updateUser(lastname, firstname, username, mail, this.token)
       .subscribe(data => {
-          this.router.navigate(['/login']);
+          //no edit status
+          console.log(data);
+          this.editing = false;
+          this.buttonEdit = "Éditer le profil";
+          this.succesMsg = "Modification effectuée avec succès";
+          //update values
+          this.lastname = data.user.lastname;
+          this.firstname = data.user.firstname;
+          this.username = data.user.username;
+          this.mail = data.user.mail;
         },
         error => {
-          this.error = "Enregistrement impossible."
-        });*/
+          this.error = "Modification impossible.";
+        });
 
   }
 
