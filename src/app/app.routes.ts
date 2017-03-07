@@ -12,7 +12,6 @@ export const rootRouterConfig: Routes = [
   { path: '', component: HomeComponent, canActivate: [SecurService] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'profile', component: ProfileComponent, canActivate: [SecurService] },
 ];
 
