@@ -1,0 +1,39 @@
+<div class="col-md-10 co-offset-3">
+  <form name="form" (ngSubmit)="onUpdateSubmit()" [formGroup]="profileForm">
+    <div class="form-group row">
+      <label class="col-sm-2">Nom :</label>
+      <div class="col-sm-10">
+        <label *ngIf="!editing" class="form-control">{{ lastname }}</label>
+        <input *ngIf="editing" class="form-control" name="lastname" formControlName="lastname" type="text" placeholder="Nom" value="{{lastname}}"  required/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2">Prénom :</label>
+      <div class="col-sm-10">
+        <label *ngIf="!editing" class="form-control">{{ firstname }}</label>
+        <input *ngIf="editing" class="form-control" name="firstname" formControlName="firstname" type="text" placeholder="Prénom" value="{{firstname}}" required/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2" >Mail :</label>
+      <div class="col-sm-10">
+        <label *ngIf="!editing" class="form-control">{{ mail }}</label>
+        <input *ngIf="editing" class="form-control" name="mail" formControlName="mail" type="text" placeholder="Mail" value="{{mail}}" required/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2">Identifiant :</label>
+      <div class="col-sm-10">
+        <label *ngIf="!editing" class="form-control">{{ username }}</label>
+        <input *ngIf="editing" class="form-control" name="username" formControlName="username" type="text" placeholder="Identifiante" value="{{username}}" required/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label (click)="onClickEdit()" class="btn btn-primary">{{ buttonEdit }}</label>
+      <button *ngIf="editing" class="btn btn-primary" type="submit">Modifier</button>
+    </div>
+  </form>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+</div>

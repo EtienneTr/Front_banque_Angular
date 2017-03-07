@@ -18,8 +18,16 @@ export class UserService {
     let bodyString = JSON.stringify({lastname: lastname, firstname: firstname, username: username, mail: mail, password: password});
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
-    console.log(bodyString);
+
     return this.http.post(createUrl, bodyString, options).map((response: Response) => response.json());
+  }
+
+  getUser(username: string, token: string){
+    let createUrl = this.baseUrl + 'user/' + username;
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.get(createUrl, options).map((response: Response) => response.json());
   }
 
 }
