@@ -16,7 +16,7 @@ export class AuthService {
 
   loginUser(username: string, password: string): Observable<boolean> {
 
-    let loginUrl = this.baseUrl + "/user/login";
+    let loginUrl = this.baseUrl + "user/login";
     let bodyString = JSON.stringify({username: username, password: password}); // Stringify payload
     let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
     let options       = new RequestOptions({ headers: headers });

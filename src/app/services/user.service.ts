@@ -17,7 +17,7 @@ export class UserService {
   constructor(private http: Http){}
 
   create(user: User) {
-    let createUrl = this.baseUrl + '/user/register';
+    let createUrl = this.baseUrl + 'user/register';
     let bodyString = JSON.stringify({lastname: user.lastname, firstname: user.firstname, username: user.username, mail: user.mail, password: user.password});
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
