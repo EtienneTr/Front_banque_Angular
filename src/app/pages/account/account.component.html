@@ -1,0 +1,44 @@
+<h3>Vos comptes</h3>
+
+
+<table class="table table-hover">
+  <tr>
+    <th>Numéro</th>
+    <th>Type de compte</th>
+    <th>Solde du compte</th>
+    <th></th>
+  </tr>
+
+  <tr *ngFor="let account of user.accounts" >
+    <td>{{ account._id }}</td>
+    <td>{{ account.type }}</td>
+    <td>{{ account.balance | number }} €</td>
+    <td><a class="btn btn-info" (click)="onClickAccount(account._id)">Détails</a></td>
+  </tr>
+</table>
+
+<div *ngIf="history">
+  <div class="col-md-6">
+    <h4>Détails compte {{ accountid }}</h4>
+  </div>
+  <div class="col-md-6">
+    <a id="closeHistory" class="btn btn-default" (click)="onClickHistoryClose()">Fermer</a>
+  </div>
+
+
+  <table class="table table-hover">
+    <tr>
+      <th>Numéro</th>
+      <th>Date</th>
+      <th>Montant</th>
+      <th>Compte associé</th>
+    </tr>
+
+    <tr *ngFor="let lines of history">
+      <td>{{ lines._id }}</td>
+      <td>{{ lines.date | date:'dd-MM-yyyy HH:mm:ss' }}</td>
+      <td [ngClass]="{'red-amount': (lines.amount < 0), 'green-amount': (lines.amount > 0)}" >{{ lines.amount | number }} €</td>
+      <td>{{ lines.concerned }}</td>
+    </tr>
+  </table>
+</div>

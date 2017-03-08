@@ -5,4 +5,9 @@ export class User {
   mail: string;
   password:string;
   token: string;
+  accounts: {
+    _id: string,
+    type: string,
+    balance: number,
+  }
 }
