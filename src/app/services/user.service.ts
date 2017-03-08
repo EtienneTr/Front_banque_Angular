@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
+//user
+import { User } from "../models/user.model";
+
 //RXJS methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -13,27 +16,27 @@ export class UserService {
 
   constructor(private http: Http){}
 
-  create(lastname: string, firstname: string, username: string, mail: string, password: string) {
-    let createUrl = this.baseUrl + 'register';
-    let bodyString = JSON.stringify({lastname: lastname, firstname: firstname, username: username, mail: mail, password: password});
+  create(user: User) {
+    let createUrl = this.baseUrl + '/user/register';
+    let bodyString = JSON.stringify({lastname: user.lastname, firstname: user.firstname, username: user.username, mail: user.mail, password: user.password});
     let headers    = new Headers({ 'Content-Type': 'application/json' });
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.post(createUrl, bodyString, options).map((response: Response) => response.json());
   }
 
-  getUser(username: string, token: string){
-    let createUrl = this.baseUrl + 'user/' + username;
-    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
+  getUser(user: User){
+    let createUrl = this.baseUrl + 'user/' + user.username;
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': user.token });
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.get(createUrl, options).map((response: Response) => response.json());
   }
 
-  updateUser(lastname: string, firstname: string, username: string, mail: string, token: string){
-    let createUrl = this.baseUrl + 'user/' + username;
-    let bodyString = JSON.stringify({lastname: lastname, firstname: firstname, username: username, mail: mail});
-    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
+  updateUser(user: User){
+    let createUrl = this.baseUrl + 'user/' + user.username;
+    let bodyString = JSON.stringify({lastname: user.lastname, firstname: user.firstname, username: user.username, mail: user.mail});
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': user.token });
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.put(createUrl, bodyString, options).map((response: Response) => response.json());

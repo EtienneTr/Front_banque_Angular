@@ -17,6 +17,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './pages/contact/contact.component';
 
+import { User } from './models/user.model';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,8 @@ import { ContactComponent } from './pages/contact/contact.component';
   providers: [
     AuthService,
     SecurService,
-    UserService
+    UserService,
+    User
   ],
   bootstrap: [ AppComponent ]
 })

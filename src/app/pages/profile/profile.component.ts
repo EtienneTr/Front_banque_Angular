@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 //service pour login
 import { UserService } from "../../services/user.service";
+//user
+import { User } from "../../models/user.model";
 
 @Component({
   selector: 'profile',
@@ -18,40 +20,34 @@ export class ProfileComponent implements OnInit {
   editing = false;
   buttonEdit = "";
 
-  //user
-  username = "";
-  token = "";
-  lastname = "";
-  firstname = "";
-  mail = "";
-
   constructor(public formBuilder: FormBuilder,
               private router: Router,
-              private loginService: UserService
+              private loginService: UserService,
+              private user: User
   ){
 
     var loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
-    this.token = loggedUser && loggedUser.token;
-    this.username = loggedUser && loggedUser.username;
+
+    user.token = loggedUser && loggedUser.token;
+    user.username = loggedUser && loggedUser.username;
     this.buttonEdit = "Éditer le profil";
 
     //get user
-    this.loginService.getUser(this.username, this.token)
+    this.loginService.getUser(user)
       .subscribe(data => {
-        var user = data && data.user;
-        this.lastname = user.lastname;
-        this.firstname = user.firstname;
-        this.mail = user.mail;
+        this.user.lastname = data.user.lastname;
+        this.user.firstname = data.user.firstname;
+        this.user.mail = data.user.mail;
       });
   }
 
   ngOnInit(){
 
     this.profileForm = this.formBuilder.group({
-      lastname: [this.lastname, Validators.required],
-      firstname: [this.firstname, Validators.required],
-      username: [this.username, Validators.required],
-      mail: [this.mail, Validators.required]
+      lastname: [this.user.lastname, Validators.required],
+      firstname: [this.user.firstname, Validators.required],
+      username: [this.user.username, Validators.required],
+      mail: [this.user.mail, Validators.required]
     });
   }
 
@@ -59,12 +55,12 @@ export class ProfileComponent implements OnInit {
     console.log(this.profileForm);
     let formValues = this.profileForm.value;
 
-    let lastname = formValues.lastname || this.lastname;
-    let firstname = formValues.firstname || this.lastname;
-    let username = formValues.username || this.username;
-    let mail = formValues.mail || this.mail;
+    if(formValues.lastname)  this.user.lastname = formValues.lastname;
+    if(formValues.firstname) this.user.firstname = formValues.firstname;
+    if(formValues.username)  this.user.username = formValues.username;
+    if(formValues.mail)      this.user.username = formValues.mail;
 
-    this.loginService.updateUser(lastname, firstname, username, mail, this.token)
+    this.loginService.updateUser(this.user)
       .subscribe(data => {
           //no edit status
           console.log(data);
@@ -72,10 +68,10 @@ export class ProfileComponent implements OnInit {
           this.buttonEdit = "Éditer le profil";
           this.succesMsg = "Modification effectuée avec succès";
           //update values
-          this.lastname = data.user.lastname;
-          this.firstname = data.user.firstname;
-          this.username = data.user.username;
-          this.mail = data.user.mail;
+          this.user.lastname = data.user.lastname;
+          this.user.firstname = data.user.firstname;
+          this.user.username = data.user.username;
+          this.user.mail = data.user.mail;
         },
         error => {
           this.error = "Modification impossible.";

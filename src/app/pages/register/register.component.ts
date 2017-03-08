@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 //service pour login
 import { UserService } from "../../services/user.service";
 
+//user
+import { User } from "../../models/user.model";
+
 @Component({
   selector: 'register',
   styleUrls: ['register.component.css'],
@@ -34,7 +37,14 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm);
     let formValues = this.registerForm.value;
 
-    this.registerService.create(formValues.lastname, formValues.firstname, formValues.username, formValues.mail, formValues.password)
+    let user = new User();
+    user.lastname = formValues.lastname;
+    user.firstname = formValues.firstname;
+    user.username = formValues.username;
+    user.mail = formValues.mail;
+    user.password = formValues.password;
+
+    this.registerService.create(user)
       .subscribe(data => {
           this.router.navigate(['/login']);
         },
