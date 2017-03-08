@@ -5,9 +5,9 @@ export class User {
   mail: string;
   password:string;
   token: string;
-  accounts: {
+  accounts: [{
     _id: string,
     type: string,
     balance: number,
-  }
+  }]
 }

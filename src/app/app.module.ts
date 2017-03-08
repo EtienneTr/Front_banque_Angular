@@ -15,6 +15,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AccountComponent } from './pages/account/account.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './pages/contact/contact.component';
 
@@ -28,7 +29,8 @@ import { User } from './models/user.model';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    AccountComponent
+    AccountComponent,
+    TransferComponent
   ],
   imports: [
     BrowserModule,
