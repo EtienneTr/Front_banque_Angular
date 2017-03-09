@@ -1,0 +1,62 @@
+<h3>Gestion des conseillers</h3>
+
+<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+<div *ngIf="success" class="alert alert-success">{{ succesMsg }}</div>
+
+<div class="max-height-table">
+  <table class="table table-hover">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>E-mail</th>
+      <th></th>
+    </tr>
+
+    <tr *ngFor="let advise of advisors" >
+      <td>{{ advise.firstname }}</td>
+      <td>{{ advise.lastname }}</td>
+      <td>{{ advise.mail}}</td>
+      <td><a class="btn btn-info" (click)="onClickShowCustomers(advise._id)">Voir clients rattachés</a></td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="users" class="max-height-table">
+  <h4>Utilisateurs rattachés</h4>
+  <table class="table table-hover max-height-table">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>E-mail</th>
+      <th>Action</th>
+    </tr>
+
+    <tr *ngFor="let user of users" >
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>{{ user.mail}}</td>
+      <td><a class="btn btn-danger" (click)="onCLickAction('remove', user._id)">Enlever</a></td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="notAssign" class="max-height-table">
+  <h4>Utilisateurs non rattachés</h4>
+  <table class="table table-hover max-height-table">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>E-mail</th>
+      <th>Action</th>
+    </tr>
+
+    <tr *ngFor="let user of notAssign" >
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>{{ user.mail}}</td>
+      <td><a class="btn btn-success" (click)="onCLickAction('add', user._id)">Ajouter</a></td>
+    </tr>
+  </table>
+</div>
+
+

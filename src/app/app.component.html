@@ -6,15 +6,18 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li><a class="nav-item nav-link active" [routerLink]="['/']">Accueil</a></li>
-              <li class="dropdown">
+              <li *ngIf="logged && role == '1'"><a class="nav-item nav-link active" [routerLink]="['/advisor']">Vos clients</a></li>
+              <li *ngIf="logged && role == '2'"><a class="nav-item nav-link active" [routerLink]="['/admin']">Administration</a></li>
+              <li *ngIf="logged && role == '0'" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mes comptes<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a [routerLink]="['/account']">Visionner les comptes</a></li>
                   <li><a [routerLink]="['/transfer']">Effectuer un virement</a></li>
                 </ul>
               </li>
-              <li><a class="nav-item nav-link" [routerLink]="['/profile']">Mon Profil</a></li>
-              <li><a class="nav-item nav-link" [routerLink]="['/login']">Se déconnecter</a></li>
+              <li *ngIf="logged" ><a class="nav-item nav-link" [routerLink]="['/profile']">Mon Profil</a></li>
+              <li *ngIf="logged" ><a class="nav-item nav-link" [routerLink]="['/login']">Se déconnecter</a></li>
+              <li *ngIf="!logged || !role" ><a class="nav-item nav-link" [routerLink]="['/login']">Se connecter</a></li>
             </ul>
           </div>
         </div>

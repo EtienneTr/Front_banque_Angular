@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, FormBuilder, Validators} from "@angular/forms";
-import { Router } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 //service pour login
 import { UserService } from "../../services/user.service";
+import { AdvisorService } from "../../services/advisor.service";
 //user
 import { User } from "../../models/user.model";
 
@@ -12,34 +13,48 @@ import { User } from "../../models/user.model";
   styleUrls: ['account.component.css'],
   templateUrl: 'account.component.html'
 })
-export class AccountComponent {
-  profileForm: FormGroup;
+export class AccountComponent implements OnInit{
   error = "";
-  succesMsg = "";
   history: Object;
   accountid: string;
+  username: string;
 
-  constructor(public formBuilder: FormBuilder,
-              private router: Router,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private loginService: UserService,
+              private advisorService: AdvisorService,
               private user: User
   ){
+  }
 
+  ngOnInit(){
     var loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
 
-    user.token = loggedUser && loggedUser.token;
-    user.username = loggedUser && loggedUser.username;
+    this.user.token = loggedUser && loggedUser.token;
+    this.user.username = loggedUser && loggedUser.username;
 
-    //get user
-    this.loginService.getUser(user)
-      .subscribe(data => {
-        this.user.lastname = data.user.lastname;
-        this.user.firstname = data.user.firstname;
-        this.user.mail = data.user.mail;
-        this.user.accounts = data.user.accounts;
-        console.log(data.user);
-        console.log(this.user);
+
+    //si advisor qui regarde un compte client
+    if(loggedUser.role && loggedUser.role == 'advisor'){
+      let subUrl = this.route.queryParams.subscribe(params => {
+        let userid = params['id'];
+        this.advisorService.getAdvisedUser(userid, this.user.token)
+          .subscribe(data => {
+            this.user.accounts = data.user.accounts;
+          });
       });
+    }else{
+      this.username = this.user.username;
+      //get user
+      this.loginService.getUser(this.username, this.user.token)
+        .subscribe(data => {
+          console.log(data);
+          this.user.lastname = data.user.lastname;
+          this.user.firstname = data.user.firstname;
+          this.user.mail = data.user.mail;
+          this.user.accounts = data.user.accounts;
+        });
+    }
   }
 
   onClickAccount(accountid: string){

@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { UserService } from "../../services/user.service";
 
 import { User } from "../../models/user.model";
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'transfer',
@@ -36,7 +35,7 @@ export class TransferComponent implements OnInit {
     user.username = loggedUser && loggedUser.username;
 
     //get user
-    this.userService.getUser(user)
+    this.userService.getUser(user.username, user.token)
       .subscribe(data => {
         this.user.lastname = data.user.lastname;
         this.user.firstname = data.user.firstname;
@@ -100,7 +99,7 @@ export class TransferComponent implements OnInit {
 
     if(fromAccount !== toAccount){
 
-      this.userService.transfertAccounts(fromAccount, toAccount, amount, this.user.token)
+      this.userService.transferAccounts(fromAccount, toAccount, amount, this.user.token)
         .subscribe(result =>{
           if(result && result.status === 200){
             this.success = "Virement effectué avec succès !";

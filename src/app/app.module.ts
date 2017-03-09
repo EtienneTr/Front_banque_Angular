@@ -9,13 +9,16 @@ import { HttpModule } from '@angular/http';
 import { AuthService } from './services/auth.service';
 import { SecurService } from './services/secur.service';
 import { UserService } from './services/user.service';
+import { AdvisorService } from "./services/advisor.service";
 
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AccountComponent } from './pages/account/account.component';
+import { AdvisorComponent } from './pages/advisor/advisor.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './pages/contact/contact.component';
 
@@ -30,7 +33,9 @@ import { User } from './models/user.model';
     RegisterComponent,
     ProfileComponent,
     AccountComponent,
-    TransferComponent
+    TransferComponent,
+    AdvisorComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,8 @@ import { User } from './models/user.model';
     AuthService,
     SecurService,
     UserService,
-    User
+    User,
+    AdvisorService
   ],
   bootstrap: [ AppComponent ]
 })

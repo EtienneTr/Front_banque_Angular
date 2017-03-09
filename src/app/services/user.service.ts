@@ -25,9 +25,9 @@ export class UserService {
     return this.http.post(createUrl, bodyString, options).map((response: Response) => response.json());
   }
 
-  getUser(user: User){
-    let createUrl = this.baseUrl + 'user/' + user.username;
-    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': user.token });
+  getUser(username: string, token: string){
+    let createUrl = this.baseUrl + 'user/' + username;
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.get(createUrl, options).map((response: Response) => response.json());
@@ -60,13 +60,21 @@ export class UserService {
     return this.http.get(createUrl, options).map((response: Response) => response.json());
   }
 
-  transfertAccounts(fromAccount: string, toAccount: string, amount: number, token: string){
+  transferAccounts(fromAccount: string, toAccount: string, amount: number, token: string){
     let transfertUrl = this.baseUrl + 'account/transfer/' + fromAccount + '/' + toAccount;
     let bodyString = JSON.stringify({amount: amount});
     let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.post(transfertUrl, bodyString, options).map((response: Response) => response.json());
+  }
+
+  getAll(token: string){
+    let getUrl = this.baseUrl + 'admin/all';
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.get(getUrl, options).map((response: Response) => response.json());
   }
 
 }

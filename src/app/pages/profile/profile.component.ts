@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     this.buttonEdit = "Éditer le profil";
 
     //get user
-    this.loginService.getUser(user)
+    this.loginService.getUser(user.username, user.token)
       .subscribe(data => {
         this.user.lastname = data.user.lastname;
         this.user.firstname = data.user.firstname;
