@@ -1,11 +1,12 @@
 <h3>Effectuer un virement</h3>
 
 <div class="container">
-  <form name="form" (ngSubmit)="onLoginSubmit()" [formGroup]="transfertForm">
+  <form name="form" (ngSubmit)="onTransferSubmit()" [formGroup]="transfertForm">
     <div class="form-group row">
       <label class="col-sm-2">Compte à débiter :</label>
       <div class="col-sm-10">
-        <select class="form-control">
+        <select class="form-control" name="fromAccount" formControlName="fromAccount" required>
+          <option value="0" selected>Sélectionner...</option>
           <option *ngFor="let account of user.accounts" value="{{ account._id }}">
             {{ account._id }} - {{account.balance | number }} €
           </option>
@@ -17,14 +18,14 @@
       <div class="col-sm-10">
           <div class="radio">
             <label>
-              <input type="radio" value="Votre comtpe" (click)="onRadioClick(1)" [checked]="radio1">
+              <input type="radio" value="in" (click)="onRadioClick(1)" name="isAccount" formControlName="isAccount">
               Votre compte :
             </label>
 
 
-            <select class="form-control" [disabled]="radio2">
-              <option>Sélectionner...</option>
-              <option *ngFor="let account of user.accounts">
+            <select class="form-control" name="inAccount" formControlName="inAccount">
+              <option value="0" selected>Sélectionner...</option>
+              <option *ngFor="let account of user.accounts" value="{{ account._id }}">
                 {{ account._id }} - {{account.balance | number }} €
               </option>
             </select>
@@ -32,13 +33,13 @@
 
         <div class="radio">
           <label>
-            <input type="radio" value="Votre comtpe2" (click)="onRadioClick(2)" [checked]="radio2">
+            <input type="radio" value="out" (click)="onRadioClick(2)" name="isAccount" formControlName="isAccount">
             Un autre utilisateur :
           </label>
 
-          <select class="form-control" [disabled]="radio1">
-            <option>Sélectionner...</option>
-            <option *ngFor="let account of accounts">
+          <select class="form-control" name="outAccount" formControlName="outAccount">
+            <option value="0" selected>Sélectionner...</option>
+            <option *ngFor="let account of accounts" value="{{ account.accountId }}">
               {{ account.accountId }} - {{account.user }}
             </option>
           </select>
@@ -46,11 +47,18 @@
 
       </div>
     </div>
+    <div class="form-group row">
+      <label class="col-sm-2">Montant de la transaction :</label>
+      <div class="col-sm-10">
+        <input name="amount" formControlName="amount" type="number" min="1" required/> €
+      </div>
+    </div>
     <div class="form-group">
-      <button class="btn btn-primary" type="submit">Se Connecter</button>
+      <button class="btn btn-primary" type="submit">Effectuer le virement</button>
     </div>
   </form>
 
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="success" class="alert alert-success">{{ success }}</div>
 
 </div>

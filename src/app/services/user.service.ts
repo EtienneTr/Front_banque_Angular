@@ -42,6 +42,8 @@ export class UserService {
     return this.http.put(createUrl, bodyString, options).map((response: Response) => response.json());
   }
 
+
+  //ACCOUNTS
   getAccountDetails(account: string, token: string){
     let createUrl = this.baseUrl + 'account/' + account;
     let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
@@ -56,6 +58,15 @@ export class UserService {
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.get(createUrl, options).map((response: Response) => response.json());
+  }
+
+  transfertAccounts(fromAccount: string, toAccount: string, amount: number, token: string){
+    let transfertUrl = this.baseUrl + 'account/transfer/' + fromAccount + '/' + toAccount;
+    let bodyString = JSON.stringify({amount: amount});
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(transfertUrl, bodyString, options).map((response: Response) => response.json());
   }
 
 }
