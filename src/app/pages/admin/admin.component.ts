@@ -34,7 +34,6 @@ export class AdminComponent {
 
     admin.token = loggedUser && loggedUser.token;
     admin.username = loggedUser && loggedUser.username;
-    console.log(admin);
     //get user
     this.userService.getAll(admin.token)
       .subscribe(data => {
@@ -47,7 +46,6 @@ export class AdminComponent {
     this.currentAdv = adviseId;
     this.users = this.advisors.find(e => e._id == adviseId).advised;
     var usersArray = this.users;
-    console.log(this.users);
     this.notAssign = this.customers.filter(function(e){
       for (let i=0;i<usersArray.length; i++){
         if(usersArray[i]._id == e._id ){
@@ -64,13 +62,11 @@ export class AdminComponent {
         if(result && result.status === 200){
           this.success = "L'action a bien été effectué";
           //refresh customers
-          console.log(result);
           if(action === "add"){
             this.notAssign = this.notAssign.filter(e => e._id != userid);
             this.users = result.advisor.advised;
           } else {
             let user = this.users.filter(e => e._id == userid);
-            console.log(user);
             this.users = result.advisor.advised;
             this.notAssign.push(user[0]);
           }

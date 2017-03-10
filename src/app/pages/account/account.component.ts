@@ -48,7 +48,6 @@ export class AccountComponent implements OnInit{
       //get user
       this.loginService.getUser(this.username, this.user.token)
         .subscribe(data => {
-          console.log(data);
           this.user.lastname = data.user.lastname;
           this.user.firstname = data.user.firstname;
           this.user.mail = data.user.mail;
@@ -63,7 +62,6 @@ export class AccountComponent implements OnInit{
       .subscribe(data =>{
           this.history = data.account.history;
           this.accountid = accountid;
-          console.log(this.history);
         },
         error => {
           this.error = "Impossible de récupérer l'historique du compte.";

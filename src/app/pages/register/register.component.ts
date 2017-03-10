@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit(){
-    console.log(this.registerForm);
     let formValues = this.registerForm.value;
 
     let user = new User();

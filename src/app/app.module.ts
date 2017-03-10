@@ -21,7 +21,6 @@ import { TransferComponent } from './pages/transfer/transfer.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdvisorsComponent } from './pages/admin/advisors.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { ContactComponent } from './pages/contact/contact.component';
 
 import { User } from './models/user.model';
 
@@ -29,7 +28,6 @@ import { User } from './models/user.model';
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,

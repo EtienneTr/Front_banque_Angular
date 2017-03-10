@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpdateSubmit(){
-    console.log(this.profileForm);
     let formValues = this.profileForm.value;
 
     if(formValues.lastname)  this.user.lastname = formValues.lastname;

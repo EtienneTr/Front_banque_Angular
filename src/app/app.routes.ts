@@ -9,7 +9,6 @@ import { TransferComponent } from './pages/transfer/transfer.component';
 import { AdvisorComponent } from './pages/advisor/advisor.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdvisorsComponent } from './pages/admin/advisors.component';
-import { ContactComponent } from './pages/contact/contact.component';
 
 import { SecurService } from './services/secur.service';
 

@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginSubmit(){
-    console.log(this.userForm);
     let formValues = this.userForm.value;
     let mail = formValues.userName;
     let pass = formValues.userPass;

@@ -42,7 +42,6 @@ export class AuthService {
 
     return this.http.post(loginUrl, bodyString, options)
       .map((res:Response) => {
-        console.log(res.json());
         let token = res.json() && res.json().token;
         if(token){
           this.token = token;
