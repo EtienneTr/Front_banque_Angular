@@ -16,14 +16,20 @@ export class AuthService {
   public token: string;
   public isLogged = false;
 
+  //observable connection ( pour afficher le menu qd utilisateur connecté)
   private _isLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   public showNavBarEmitter: Observable<boolean> = this._isLogged.asObservable();
+
+  //observable rôle utilisateur pour changer le menu
+  private _role: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public showSpecificRole: Observable<string> = this._role.asObservable();
 
   constructor(private http: Http)
   {
     if(localStorage.getItem("loggeduser")){
       this.isLogged = true;
       this._isLogged.next(this.isLogged);
+      this._role.next(JSON.parse(localStorage.getItem("loggeduser")).role);
     }
   }
 
@@ -44,6 +50,7 @@ export class AuthService {
           localStorage.setItem('loggeduser', JSON.stringify({username: username, token: token, role: res.json().role }));
           this.isLogged = true;
           this._isLogged.next(this.isLogged);
+          this._role.next(res.json().role);
           return true;
         } else {
           return false;
@@ -56,6 +63,7 @@ export class AuthService {
     this.token = null;
     this.isLogged = false;
     this._isLogged.next(this.isLogged);
+    this._role.next('');
     localStorage.removeItem("loggeduser");
   }
 

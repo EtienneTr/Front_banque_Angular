@@ -58,20 +58,23 @@ export class ProfileComponent implements OnInit {
     if(formValues.lastname)  this.user.lastname = formValues.lastname;
     if(formValues.firstname) this.user.firstname = formValues.firstname;
     if(formValues.username)  this.user.username = formValues.username;
-    if(formValues.mail)      this.user.username = formValues.mail;
+    if(formValues.mail)      this.user.mail = formValues.mail;
 
     this.loginService.updateUser(this.user)
       .subscribe(data => {
-          //no edit status
-          console.log(data);
-          this.editing = false;
-          this.buttonEdit = "Éditer le profil";
-          this.succesMsg = "Modification effectuée avec succès";
-          //update values
-          this.user.lastname = data.user.lastname;
-          this.user.firstname = data.user.firstname;
-          this.user.username = data.user.username;
-          this.user.mail = data.user.mail;
+          if(data && data.status === 200) {
+            //no edit status
+            this.editing = false;
+            this.buttonEdit = "Éditer le profil";
+            this.succesMsg = "Modification effectuée avec succès";
+            //update values
+            this.user.lastname = data.user.lastname;
+            this.user.firstname = data.user.firstname;
+            this.user.username = data.user.username;
+            this.user.mail = data.user.mail;
+          } else {
+            this.error = "Veuillez vérifier vos informations";
+          }
         },
         error => {
           this.error = "Modification impossible.";

@@ -19,20 +19,21 @@ export class AppComponent {
       }
     });
 
-    var loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
-    if(loggedUser && loggedUser.role) {
-      switch (loggedUser.role) {
-        case "advisor":
-          this.role = 1;
-          break;
-        case "admin":
-          this.role = 2;
-          break;
-        default:
-          this.role = 0;
-          break;
+    this.authService.showSpecificRole.subscribe((role) => {
+      if(role != null){
+        switch (role) {
+          case "advisor":
+            this.role = 1;
+            break;
+          case "admin":
+            this.role = 2;
+            break;
+          default:
+            this.role = 0;
+            break;
+        }
       }
-    }
+    });
 
   }
 }

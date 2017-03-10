@@ -1,0 +1,40 @@
+<h3>Ajout de conseillers</h3>
+
+<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+<div *ngIf="success" class="alert alert-success">{{ succesMsg }}</div>
+
+<div class="max-height-table">
+  <h4>Conseillers actuels</h4>
+  <table class="table table-hover">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>E-mail</th>
+    </tr>
+
+    <tr *ngFor="let advise of advisors" >
+      <td>{{ advise.firstname }}</td>
+      <td>{{ advise.lastname }}</td>
+      <td>{{ advise.mail}}</td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="customers" class="max-height-table">
+  <h4>Utilisateurs</h4>
+  <table class="table table-hover max-height-table">
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>E-mail</th>
+      <th>Action</th>
+    </tr>
+
+    <tr *ngFor="let user of customers" >
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>{{ user.mail}}</td>
+      <td><a class="btn btn-danger" (click)="onClickAction(user._id)">Transformer en conseiller</a></td>
+    </tr>
+  </table>
+</div>

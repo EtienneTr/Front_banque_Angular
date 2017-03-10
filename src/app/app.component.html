@@ -7,7 +7,13 @@
             <ul class="nav navbar-nav">
               <li><a class="nav-item nav-link active" [routerLink]="['/']">Accueil</a></li>
               <li *ngIf="logged && role == '1'"><a class="nav-item nav-link active" [routerLink]="['/advisor']">Vos clients</a></li>
-              <li *ngIf="logged && role == '2'"><a class="nav-item nav-link active" [routerLink]="['/admin']">Administration</a></li>
+              <li *ngIf="logged && role == '2'" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a [routerLink]="['/admin']">Gestion des conseillers</a></li>
+                  <li><a [routerLink]="['/advisors']">Ajouter un conseiller</a></li>
+                </ul>
+              </li>
               <li *ngIf="logged && role == '0'" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mes comptes<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -17,7 +23,7 @@
               </li>
               <li *ngIf="logged" ><a class="nav-item nav-link" [routerLink]="['/profile']">Mon Profil</a></li>
               <li *ngIf="logged" ><a class="nav-item nav-link" [routerLink]="['/login']">Se déconnecter</a></li>
-              <li *ngIf="!logged || !role" ><a class="nav-item nav-link" [routerLink]="['/login']">Se connecter</a></li>
+              <li *ngIf="!logged" ><a class="nav-item nav-link" [routerLink]="['/login']">Se connecter</a></li>
             </ul>
           </div>
         </div>

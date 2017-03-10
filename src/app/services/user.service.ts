@@ -69,12 +69,23 @@ export class UserService {
     return this.http.post(transfertUrl, bodyString, options).map((response: Response) => response.json());
   }
 
+
+  //Admin
   getAll(token: string){
     let getUrl = this.baseUrl + 'admin/all';
     let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
     let options    = new RequestOptions({ headers: headers });
 
     return this.http.get(getUrl, options).map((response: Response) => response.json());
+  }
+
+  upgradeToAdvisor(userid: string, token: string){
+    let upgradeUrl = this.baseUrl + 'user/upgrade';
+    let bodyString = JSON.stringify({customerId: userid});
+    let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': token });
+    let options    = new RequestOptions({ headers: headers });
+
+    return this.http.post(upgradeUrl, bodyString, options).map((response: Response) => response.json());
   }
 
 }

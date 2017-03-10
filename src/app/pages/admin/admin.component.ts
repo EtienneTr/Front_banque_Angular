@@ -44,8 +44,8 @@ export class AdminComponent {
   }
 
   onClickShowCustomers(adviseId){
-    this.currentAdv = adviseId
-    this.users = this.advisors.find(e => e._id = adviseId).advised;
+    this.currentAdv = adviseId;
+    this.users = this.advisors.find(e => e._id == adviseId).advised;
     var usersArray = this.users;
     console.log(this.users);
     this.notAssign = this.customers.filter(function(e){
@@ -68,6 +68,11 @@ export class AdminComponent {
           if(action === "add"){
             this.notAssign = this.notAssign.filter(e => e._id != userid);
             this.users = result.advisor.advised;
+          } else {
+            let user = this.users.filter(e => e._id == userid);
+            console.log(user);
+            this.users = result.advisor.advised;
+            this.notAssign.push(user[0]);
           }
         }
       },

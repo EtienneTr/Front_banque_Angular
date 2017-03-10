@@ -19,6 +19,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { AdvisorComponent } from './pages/advisor/advisor.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { AdvisorsComponent } from './pages/admin/advisors.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ContactComponent } from './pages/contact/contact.component';
 
@@ -35,7 +36,8 @@ import { User } from './models/user.model';
     AccountComponent,
     TransferComponent,
     AdvisorComponent,
-    AdminComponent
+    AdminComponent,
+    AdvisorsComponent
   ],
   imports: [
     BrowserModule,
