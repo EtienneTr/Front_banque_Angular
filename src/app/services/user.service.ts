@@ -33,8 +33,8 @@ export class UserService {
     return this.http.get(createUrl, options).map((response: Response) => response.json());
   }
 
-  updateUser(user: User){
-    let createUrl = this.baseUrl + 'user/' + user.username;
+  updateUser(user: User, username: string){
+    let createUrl = this.baseUrl + 'user/' + username;
     let bodyString = JSON.stringify({lastname: user.lastname, firstname: user.firstname, username: user.username, mail: user.mail});
     let headers    = new Headers({ 'Content-Type': 'application/json', 'x-access-token': user.token });
     let options    = new RequestOptions({ headers: headers });

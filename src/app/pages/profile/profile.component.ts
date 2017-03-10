@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
 
     user.token = loggedUser && loggedUser.token;
     user.username = loggedUser && loggedUser.username;
+    user.role = loggedUser && loggedUser.role;
     this.buttonEdit = "Éditer le profil";
 
     //get user
@@ -53,13 +54,13 @@ export class ProfileComponent implements OnInit {
 
   onUpdateSubmit(){
     let formValues = this.profileForm.value;
-
+    let oldusername = this.user.username;
     if(formValues.lastname)  this.user.lastname = formValues.lastname;
     if(formValues.firstname) this.user.firstname = formValues.firstname;
     if(formValues.username)  this.user.username = formValues.username;
     if(formValues.mail)      this.user.mail = formValues.mail;
 
-    this.loginService.updateUser(this.user)
+    this.loginService.updateUser(this.user, oldusername)
       .subscribe(data => {
           if(data && data.status === 200) {
             //no edit status
@@ -71,6 +72,11 @@ export class ProfileComponent implements OnInit {
             this.user.firstname = data.user.firstname;
             this.user.username = data.user.username;
             this.user.mail = data.user.mail;
+
+            //if update username => need login
+            if(this.user.username !== JSON.parse(localStorage.getItem("loggeduser")).username){
+              localStorage.setItem('loggeduser', JSON.stringify({username: this.user.username, token: this.user.token, role: this.user.role }));
+            }
           } else {
             this.error = "Veuillez vérifier vos informations";
           }

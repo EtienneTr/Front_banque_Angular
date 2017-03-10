@@ -5,6 +5,7 @@ export class User {
   mail: string;
   password:string;
   token: string;
+  role: string;
   accounts: [{
     _id: string,
     type: string,
